@@ -11,14 +11,12 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     try {
       const { data, error } = await axios.post(
         `${server}/auth/login`,
@@ -43,8 +41,6 @@ const Login = () => {
         type: "error",
         position: "top-right",
       });
-    } finally {
-      setLoading(false);
     }
   };
   useEffect(() => {

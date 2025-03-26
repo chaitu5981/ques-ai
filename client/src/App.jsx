@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Podcasts from "./pages/Podcasts";
 import { ToastContainer } from "react-toastify";
 import Projects from "./pages/Projects";
+import AddPodcast from "./components/AddPodcast";
+import ViewPodcast from "./components/ViewPodcast";
 const App = () => {
   return (
     <div>
@@ -13,7 +15,10 @@ const App = () => {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/podcasts" element={<Podcasts />} />
+          <Route path="/podcasts" element={<Podcasts />}>
+            <Route path="add" element={<AddPodcast />} />
+            <Route path="view" element={<ViewPodcast />} />
+          </Route>
         </Routes>
       </BrowserRouter>
       <ToastContainer />

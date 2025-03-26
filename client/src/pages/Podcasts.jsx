@@ -1,15 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, useSearchParams } from "react-router-dom";
 import logo2 from "../assets/images/logo-2.png";
 import { FaPlus } from "react-icons/fa6";
 import { GrFormEdit } from "react-icons/gr";
-import AddPodcast from "../components/AddPodcast";
-import CreateRepurpose from "../components/CreateRepurpose";
 import { MdOutlineHome } from "react-icons/md";
 import { GrUpgrade } from "react-icons/gr";
 import { MdOutlineWidgets } from "react-icons/md";
-import PodcastWidget from "../components/PodcastWidget";
-import Upgrade from "../components/Upgrade";
 import { FaRegBell } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import axios from "axios";
@@ -20,31 +16,29 @@ const links = [
     id: 1,
     icon: <FaPlus />,
     text: "Add your Podcast(s)",
-    component: <AddPodcast />,
+    route: "/podcasts/add",
   },
   {
     id: 2,
     icon: <GrFormEdit />,
     text: "Create a Repurpose",
-    component: <CreateRepurpose />,
   },
   {
     id: 3,
     icon: <MdOutlineWidgets />,
     text: "Podcast Widget",
-    component: <PodcastWidget />,
   },
   {
     id: 4,
     icon: <GrUpgrade />,
     text: "Upgrade",
-    component: <Upgrade />,
   },
 ];
 const Podcasts = () => {
   const [searchParams] = useSearchParams();
   const [activeLink, setActiveLink] = useState(0);
   const projectName = searchParams.get("projectName");
+  const projectId = searchParams.get("projectId");
   const navigate = useNavigate();
   const logout = async () => {
     console.log("hi");
@@ -81,7 +75,10 @@ const Podcasts = () => {
         {links.map((link) => (
           <div
             key={link.id}
-            onClick={() => setActiveLink(link.id)}
+            onClick={() => {
+              setActiveLink(link.id);
+              navigate(`${link.route}?projectId=${projectId}`);
+            }}
             className="flex gap-3 cursor-pointer items-center px-3 py-1 rounded-md"
             style={
               activeLink == link.id
@@ -116,7 +113,7 @@ const Podcasts = () => {
             </button>
           </div>
         </div>
-        {activeLink > 0 && links[activeLink - 1].component}
+        <Outlet />
       </div>
     </div>
   );

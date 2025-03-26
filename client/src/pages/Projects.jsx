@@ -90,10 +90,10 @@ const Projects = () => {
         </div>
       </div>
       {loading ? (
-        <div>Loading...</div>
+        <div className="text-6xl">Loading...</div>
       ) : projects.length > 0 ? (
         <div className="w-full flex flex-col gap-6">
-          <div className="flex w-full justify-between">
+          <div className="flex w-full flex-col md:flex-row items-center gap-8 justify-between">
             <p className="text-3xl text-[#8833b8] font-bold">Projects</p>
             <button
               onClick={() => setShowModal(true)}

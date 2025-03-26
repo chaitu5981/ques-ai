@@ -1,14 +1,10 @@
 import axios from "axios";
 import { server } from "../utils/constants";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const PodcastList = ({
-  podcasts,
-  setPodcast,
-  setViewPodcast,
-  getPodcasts,
-  projectId,
-}) => {
+const PodcastList = ({ podcasts, getPodcasts, projectId }) => {
+  const navigate = useNavigate();
   const getDateAndTime = (timeString) => {
     const dateTime = new Date(timeString);
     const date = dateTime.toLocaleDateString("en-in", {
@@ -65,8 +61,9 @@ const PodcastList = ({
                   <button
                     className="px-3 border-2 border-gray-300 rounded-sm"
                     onClick={() => {
-                      setPodcast(podcast);
-                      setViewPodcast(true);
+                      navigate(
+                        `/podcasts/view?podcastId=${podcast._id}&projectId=${projectId}`
+                      );
                     }}
                   >
                     View

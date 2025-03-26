@@ -26,6 +26,7 @@ export const createPodcast = async (req, res) => {
 
 export const getPodcasts = async (req, res) => {
   const { projectId } = req.params;
+
   const project = await Project.findById(projectId);
   const podcasts = [];
   const podcastIds = project.podcasts;
@@ -96,7 +97,7 @@ export const deletePodcast = async (req, res) => {
       });
     const project = await Project.findById(projectId);
     project.podcasts = project.podcasts.filter(
-      (podcast) => !podcast._id.equals(podcastId)
+      (podcast) => podcast._id.toString() !== podcastId
     );
     await project.save();
     res.status(201).json({

@@ -3,11 +3,15 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { server } from "../utils/constants";
 import { toast } from "react-toastify";
 import axios from "axios";
-const ViewPodcast = ({ podcastId, setViewPodcast }) => {
+import { useNavigate, useSearchParams } from "react-router-dom";
+const ViewPodcast = () => {
   const [editable, setEditable] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [searchParams] = useSearchParams();
+  const podcastId = searchParams.get("podcastId");
+  const projectId = searchParams.get("projectId");
   const oldTranscriptRef = useRef();
-
+  const navigate = useNavigate();
   const getPodcast = async () => {
     try {
       const { data } = await axios.get(`${server}/podcasts/${podcastId}`, {
@@ -51,7 +55,9 @@ const ViewPodcast = ({ podcastId, setViewPodcast }) => {
     <div className="space-y-6">
       <div className="w-full flex  justify-between items-center">
         <div className="text-3xl font-semibold flex items-center gap-2">
-          <button onClick={() => setViewPodcast(false)}>
+          <button
+            onClick={() => navigate(`/podcasts/add?projectId=${projectId}`)}
+          >
             <FaArrowLeftLong />
           </button>
           <span>Edit Podcast</span>

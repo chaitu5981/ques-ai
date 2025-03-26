@@ -70,7 +70,7 @@ const AddPodcast = () => {
 
   useEffect(() => {
     getPodcasts();
-  }, []);
+  }, [projectId]);
   if (!viewPodcast)
     return (
       <div className="space-y-8">
@@ -150,6 +150,8 @@ const AddPodcast = () => {
             podcasts={podcasts}
             setPodcast={setPodcast}
             setViewPodcast={setViewPodcast}
+            getPodcasts={getPodcasts}
+            projectId={projectId}
           />
         )}
       </div>

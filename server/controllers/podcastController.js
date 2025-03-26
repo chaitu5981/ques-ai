@@ -86,7 +86,7 @@ export const updatePodcast = async (req, res) => {
 };
 
 export const deletePodcast = async (req, res) => {
-  const { podcastId } = req.params;
+  const { podcastId, projectId } = req.params;
   try {
     const podcast = await Podcast.findByIdAndDelete(podcastId);
     if (!podcast)
@@ -94,6 +94,11 @@ export const deletePodcast = async (req, res) => {
         success: false,
         message: "Podcast not found",
       });
+    const project = await Project.findById(projectId);
+    project.podcasts = project.podcasts.filter(
+      (podcast) => !podcast._id.equals(podcastId)
+    );
+    await project.save();
     res.status(201).json({
       success: true,
       message: "Podcast deleted successfully",

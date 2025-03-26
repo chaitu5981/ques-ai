@@ -2,7 +2,13 @@ import axios from "axios";
 import { server } from "../utils/constants";
 import { toast } from "react-toastify";
 
-const PodcastList = ({ podcasts, setPodcast, setViewPodcast }) => {
+const PodcastList = ({
+  podcasts,
+  setPodcast,
+  setViewPodcast,
+  getPodcasts,
+  projectId,
+}) => {
   const getDateAndTime = (timeString) => {
     const dateTime = new Date(timeString);
     const date = dateTime.toLocaleDateString("en-in", {
@@ -19,14 +25,19 @@ const PodcastList = ({ podcasts, setPodcast, setViewPodcast }) => {
   };
   const deletePodcast = async (podcastId) => {
     try {
-      const { data } = await axios.delete(`${server}/podcasts/${podcastId}`, {
-        withCredentials: true,
-      });
-      if (data.success)
+      const { data } = await axios.delete(
+        `${server}/podcasts/${podcastId}/${projectId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (data.success) {
         toast("Podcast deleted successfully", {
           type: "success",
           position: "top-right",
         });
+        getPodcasts();
+      }
     } catch (error) {
       console.log(error);
     }

@@ -86,7 +86,7 @@ export const updatePodcast = async (req, res) => {
 };
 
 export const deletePodcast = async (req, res) => {
-  const podcastId = req.params;
+  const { podcastId } = req.params;
   try {
     const podcast = await Podcast.findByIdAndDelete(podcastId);
     if (!podcast)

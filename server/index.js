@@ -13,7 +13,7 @@ app.use(
     origin: [
       "http://127.0.0.1:5173",
       "http://localhost:5173",
-      "https://ques-ai-orcin.vercel.app/",
+      "https://ques-ai-orcin.vercel.app",
     ],
     credentials: true,
   })

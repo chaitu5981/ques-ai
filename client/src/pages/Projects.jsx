@@ -13,7 +13,9 @@ const Projects = () => {
   const [showModal, setShowModal] = useState(false);
   const [newProjectName, setNewProjectName] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  console.log(loading);
   const getProjects = async () => {
     try {
       const { data } = await axios.get(`${server}/projects`, {
@@ -22,10 +24,11 @@ const Projects = () => {
       setProjects(data.projects);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   const getShortName = (name) => {
-    console.log(name);
     const arr = name.split(" ");
     return arr[0][0].toUpperCase() + arr[1][0].toUpperCase();
   };
@@ -34,12 +37,14 @@ const Projects = () => {
     return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
   };
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${server}/auth/check-auth`, { withCredentials: true })
       .then((res) => {
         if (res.data.success) getProjects();
       })
       .catch(() => {
+        setLoading(false);
         navigate("/");
       });
   }, []);
@@ -54,6 +59,7 @@ const Projects = () => {
       );
       if (res.data.success) {
         toast(res.data.message, { type: "success", position: "top-right" });
+        setNewProjectName("");
         getProjects();
         setShowModal(false);
       }
@@ -83,7 +89,9 @@ const Projects = () => {
           <GoBell />
         </div>
       </div>
-      {projects.length > 0 ? (
+      {loading ? (
+        <div>Loading...</div>
+      ) : projects.length > 0 ? (
         <div className="w-full flex flex-col gap-6">
           <div className="flex w-full justify-between">
             <p className="text-3xl text-[#8833b8] font-bold">Projects</p>
@@ -102,7 +110,7 @@ const Projects = () => {
                   `/podcasts?projectId=${project.projectId}&projectName=${project.name}`
                 )
               }
-              className="border-2 border-slate-300 rounded-2xl p-1 w-fit flex gap-5 items-center"
+              className="border-2 border-slate-300 rounded-2xl p-1 w-fit flex gap-5 items-center cursor-pointer"
               key={project?.projectId}
             >
               <div className="text-3xl text-white bg-amber-500 rounded-xl w-[4rem] h-[4rem] p-3">

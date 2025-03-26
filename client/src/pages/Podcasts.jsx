@@ -1,13 +1,20 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
-import { server } from "../utils/constants";
+import { useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import logo2 from "../assets/images/logo-2.png";
 import { FaPlus } from "react-icons/fa6";
 import { GrFormEdit } from "react-icons/gr";
 import AddPodcast from "../components/AddPodcast";
 import CreateRepurpose from "../components/CreateRepurpose";
 import { MdOutlineHome } from "react-icons/md";
+import { GrUpgrade } from "react-icons/gr";
+import { MdOutlineWidgets } from "react-icons/md";
+import PodcastWidget from "../components/PodcastWidget";
+import Upgrade from "../components/Upgrade";
+import { FaRegBell } from "react-icons/fa6";
+import { MdLogout } from "react-icons/md";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { server } from "../utils/constants";
 const links = [
   {
     id: 1,
@@ -21,17 +28,46 @@ const links = [
     text: "Create a Repurpose",
     component: <CreateRepurpose />,
   },
+  {
+    id: 3,
+    icon: <MdOutlineWidgets />,
+    text: "Podcast Widget",
+    component: <PodcastWidget />,
+  },
+  {
+    id: 4,
+    icon: <GrUpgrade />,
+    text: "Upgrade",
+    component: <Upgrade />,
+  },
 ];
 const Podcasts = () => {
   const [searchParams] = useSearchParams();
   const [activeLink, setActiveLink] = useState(0);
-  const projectId = searchParams.get("projectId");
   const projectName = searchParams.get("projectName");
-
+  const navigate = useNavigate();
+  const logout = async () => {
+    console.log("hi");
+    try {
+      const { data } = await axios.get(`${server}/auth/logout`, {
+        withCredentials: true,
+      });
+      console.log(data);
+      if (data.success) {
+        toast(data.message, {
+          type: "success",
+          position: "top-right",
+        });
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex  w-full">
       <div className="flex flex-col gap-6 p-8 w-[20%]">
-        <div className="flex gap-1 items-center">
+        <Link to="/" className="flex gap-1 items-center">
           <img
             src={logo2}
             alt=""
@@ -41,7 +77,7 @@ const Podcasts = () => {
             <span className="font-bold">Ques.</span>
             <span className="font-thin">AI</span>
           </p>
-        </div>
+        </Link>
         {links.map((link) => (
           <div
             key={link.id}
@@ -63,7 +99,7 @@ const Podcasts = () => {
         ))}
       </div>
       <div className="w-[80%] bg-slate-200 min-h-screen py-6 px-20 space-y-9">
-        <div className="w-full justify-between">
+        <div className="w-full justify-between flex items-center">
           <p className="flex items-center gap-1 text-slate-700 font-semibold">
             <MdOutlineHome className="text-xl" />
             <span>Home Page / {projectName} /</span>
@@ -71,6 +107,14 @@ const Podcasts = () => {
               {links[activeLink - 1]?.text}
             </span>
           </p>
+          <div className="flex gap-3 items-center text-xl">
+            <button>
+              <FaRegBell />
+            </button>
+            <button className="text-red-500" onClick={logout}>
+              <MdLogout />
+            </button>
+          </div>
         </div>
         {activeLink > 0 && links[activeLink - 1].component}
       </div>

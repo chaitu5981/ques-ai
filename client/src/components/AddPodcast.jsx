@@ -37,7 +37,7 @@ const AddPodcast = () => {
   const projectId = searchParams.get("projectId");
   const getPodcasts = async () => {
     try {
-      const { data } = await axios.get(`${server}/podcasts/${projectId}`, {
+      const { data } = await axios.get(`${server}/podcasts/all/${projectId}`, {
         withCredentials: true,
       });
       setPodcasts(data.podcasts);
@@ -154,6 +154,9 @@ const AddPodcast = () => {
         )}
       </div>
     );
-  else return <ViewPodcast podcast={podcast} setViewPodcast={setViewPodcast} />;
+  else
+    return (
+      <ViewPodcast podcastId={podcast._id} setViewPodcast={setViewPodcast} />
+    );
 };
 export default AddPodcast;

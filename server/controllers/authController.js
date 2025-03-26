@@ -72,3 +72,15 @@ export const checkAuth = (req, res) => {
     message: "User  logged in",
   });
 };
+
+export const logout = (req, res) => {
+  res.clearCookie("authToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+  });
+  res.status(200).json({
+    success: true,
+    message: "User logged out successfully",
+  });
+};

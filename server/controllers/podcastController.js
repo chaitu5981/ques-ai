@@ -39,3 +39,70 @@ export const getPodcasts = async (req, res) => {
     podcasts,
   });
 };
+
+export const getPodcast = async (req, res) => {
+  const { podcastId } = req.params;
+  try {
+    const podcast = await Podcast.findById(podcastId);
+    if (!podcast)
+      return res.status(401).json({
+        success: false,
+        message: "Podcast not found",
+      });
+    res.status(200).json({
+      success: true,
+      podcast,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};
+export const updatePodcast = async (req, res) => {
+  const { podcastId, transcript } = req.body;
+  try {
+    const podcast = await Podcast.findById(podcastId);
+    if (!podcast)
+      return res.status(401).json({
+        success: false,
+        message: "Podcast not found",
+      });
+    podcast.transcript = transcript;
+    await podcast.save();
+    res.status(201).json({
+      success: true,
+      message: "Podcast updated successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};
+
+export const deletePodcast = async (req, res) => {
+  const podcastId = req.params;
+  try {
+    const podcast = await Podcast.findByIdAndDelete(podcastId);
+    if (!podcast)
+      return res.status(400).json({
+        success: false,
+        message: "Podcast not found",
+      });
+    res.status(201).json({
+      success: true,
+      message: "Podcast deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};

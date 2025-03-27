@@ -3,7 +3,7 @@ import { server } from "../utils/constants";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const PodcastList = ({ podcasts, getPodcasts, projectId }) => {
+const PodcastList = ({ podcasts, getPodcasts, projectId, projectName }) => {
   const navigate = useNavigate();
   const getDateAndTime = (timeString) => {
     const dateTime = new Date(timeString);
@@ -39,47 +39,49 @@ const PodcastList = ({ podcasts, getPodcasts, projectId }) => {
     }
   };
   return (
-    <div className="bg-white px-24 py-4 rounded-md shadow-md space-y-6">
+    <div className="bg-white px-2 lg:px-24 py-4 rounded-md shadow-md space-y-6">
       <p className="font-semibold text-xl">Your Files</p>
-      <table className="w-full">
-        <thead>
-          <tr className=" bg-slate-200 rounded-md">
-            <th>No.</th>
-            <th>Name</th>
-            <th>Upload Date & Time</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody className="text-center space-y-3">
-          {podcasts.map((podcast, i) => (
-            <tr className="border-b-2 border-b-slate-300 " key={podcast._id}>
-              <td className="py-2">{i + 1}</td>
-              <td className="py-2">{podcast?.name}</td>
-              <td className="py-2">{getDateAndTime(podcast?.createdAt)}</td>
-              <td className="py-2">
-                <div className="flex justify-center">
-                  <button
-                    className="px-3 border-2 border-gray-300 rounded-sm"
-                    onClick={() => {
-                      navigate(
-                        `/podcasts/view?podcastId=${podcast._id}&projectId=${projectId}`
-                      );
-                    }}
-                  >
-                    View
-                  </button>
-                  <button
-                    onClick={() => deletePodcast(podcast._id)}
-                    className="px-3  border-2 border-gray-300 text-red-500 rounded-sm"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </td>
+      <div className="w-full overflow-x-scroll ">
+        <table className="w-full border-spacing-x-4 lg:border-spacing-x-0">
+          <thead>
+            <tr className=" bg-slate-200 rounded-md">
+              <th>No.</th>
+              <th>Name</th>
+              <th>Upload Date & Time</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="text-center space-y-3">
+            {podcasts.map((podcast, i) => (
+              <tr className="border-b-2 border-b-slate-300 " key={podcast._id}>
+                <td className="py-2">{i + 1}</td>
+                <td className="py-2">{podcast?.name}</td>
+                <td className="py-2">{getDateAndTime(podcast?.createdAt)}</td>
+                <td className="py-2">
+                  <div className="flex justify-center">
+                    <button
+                      className="px-3 border-2 border-gray-300 rounded-sm"
+                      onClick={() => {
+                        navigate(
+                          `/podcasts/view?podcastId=${podcast._id}&projectId=${projectId}&projectName=${projectName}`
+                        );
+                      }}
+                    >
+                      View
+                    </button>
+                    <button
+                      onClick={() => deletePodcast(podcast._id)}
+                      className="px-3  border-2 border-gray-300 text-red-500 rounded-sm"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

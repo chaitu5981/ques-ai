@@ -39,7 +39,7 @@ const Register = () => {
     }
   };
   return (
-    <div className="w-full flex  flex-col md:flex-row">
+    <div className="w-full flex h-screen flex-col md:flex-row">
       <Banner />
       <div className="w-full md:w-[50%] lg:w-[30%] flex flex-col  gap-4 justify-center items-center px-16">
         <img src={logo2} alt="" className="w-[4rem] h-[4rem] object-contain" />

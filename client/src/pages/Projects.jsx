@@ -71,7 +71,7 @@ const Projects = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-8 justify-center items-center w-full px-30 py-8">
+    <div className="flex flex-col gap-8 justify-center items-center w-full h-full px-30 py-8">
       <div className="flex justify-between w-full">
         <div className="flex gap-1 items-center">
           <img
@@ -91,7 +91,7 @@ const Projects = () => {
       </div>
       {loading ? (
         <div className="text-6xl">Loading...</div>
-      ) : projects.length > 0 ? (
+      ) : projects && projects.length > 0 ? (
         <div className="w-full flex flex-col gap-6">
           <div className="flex w-full flex-col md:flex-row items-center gap-8 justify-between">
             <p className="text-3xl text-[#8833b8] font-bold">Projects</p>
@@ -131,7 +131,7 @@ const Projects = () => {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center gap-10 text-center w-[60rem]">
+        <div className="flex flex-col justify-center items-center gap-10 text-center px-5  w-[60rem]">
           <p className="text-3xl font-bold text-[#8833b8]">
             Create a New Project
           </p>

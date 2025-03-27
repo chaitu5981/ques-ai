@@ -30,6 +30,7 @@ const AddPodcast = () => {
 
   const [searchParams] = useSearchParams();
   const projectId = searchParams.get("projectId");
+  const projectName = searchParams.get("projectName");
   const getPodcasts = async () => {
     try {
       const { data } = await axios.get(`${server}/podcasts/all/${projectId}`, {
@@ -47,12 +48,12 @@ const AddPodcast = () => {
   return (
     <div className="space-y-8">
       <p className="text-3xl font-bold">Add Podcast</p>
-      <div className="justify-between flex">
+      <div className="justify-between gap-6 flex flex-col lg:flex-row">
         {options.map((option) => (
           <div
             onClick={() => setShowUpload(true)}
             key={option.id}
-            className="flex justify-between gap-10 px-4 py-8 cursor-pointer bg-white shadow-md rounded-md w-[20rem] items-center"
+            className="flex justify-between gap-10 px-4 py-8 cursor-pointer bg-white shadow-md rounded-md w-[80%] lg:w-[30%] items-center"
           >
             <div className="">
               <p className="text-2xl font-semibold">{option.text}</p>
@@ -80,6 +81,7 @@ const AddPodcast = () => {
           podcasts={podcasts}
           getPodcasts={getPodcasts}
           projectId={projectId}
+          projectName={projectName}
         />
       )}
     </div>

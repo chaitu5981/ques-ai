@@ -10,6 +10,7 @@ const ViewPodcast = () => {
   const [searchParams] = useSearchParams();
   const podcastId = searchParams.get("podcastId");
   const projectId = searchParams.get("projectId");
+  const projectName = searchParams.get("projectName");
   const oldTranscriptRef = useRef();
   const navigate = useNavigate();
   const getPodcast = async () => {
@@ -56,7 +57,11 @@ const ViewPodcast = () => {
       <div className="w-full flex  justify-between items-center">
         <div className="text-3xl font-semibold flex items-center gap-2">
           <button
-            onClick={() => navigate(`/podcasts/add?projectId=${projectId}`)}
+            onClick={() =>
+              navigate(
+                `/podcasts/add?projectId=${projectId}&projectName=${projectName}`
+              )
+            }
           >
             <FaArrowLeftLong />
           </button>

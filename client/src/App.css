@@ -1,1 +1,20 @@
 @import "tailwindcss";
+/* Show scrollbar */
+::-webkit-scrollbar {
+  height: 8px; /* For horizontal scrollbars */
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: lightgray;
+}
+
+@media (min-width: 1024px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}

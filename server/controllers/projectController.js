@@ -29,7 +29,7 @@ export const getProjects = async (req, res) => {
   //     success: false,
   //     message: "No projects found",
   //   });
-  for (let i = 0; i < projects.length; i++) {
+  for (let i = 0; i < projects?.length; i++) {
     const project1 = await Project.findById(projects[i]);
     projects1.push({
       projectId: project1?.id,

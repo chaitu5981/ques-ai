@@ -39,7 +39,7 @@ const PodcastList = ({ podcasts, getPodcasts, projectId, projectName }) => {
     }
   };
   return (
-    <div className="bg-white px-2 lg:px-24 py-4 rounded-md shadow-md space-y-6">
+    <div className="bg-white px-2 lg:px-24 py-4 rounded-md shadow-md space-y-6 w-full">
       <p className="font-semibold text-xl">Your Files</p>
       <div className="w-full overflow-x-scroll ">
         <table className="w-full border-spacing-x-4 lg:border-spacing-x-0">

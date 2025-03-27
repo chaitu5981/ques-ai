@@ -11,6 +11,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -24,6 +25,7 @@ const Login = () => {
         position: "top-right",
       });
     try {
+      setLoading(true);
       const { data, error } = await axios.post(
         `${server}/auth/login`,
         formData,
@@ -47,6 +49,8 @@ const Login = () => {
         type: "error",
         position: "top-right",
       });
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -90,9 +94,13 @@ const Login = () => {
           />
           <button
             type="submit"
-            className="w-full bg-[#8833b8] text-white py-1.5 rounded-md"
+            className="w-full bg-[#8833b8] text-white py-1.5 rounded-md flex justify-center"
           >
-            Login
+            {loading ? (
+              <div className="w-[1rem] h-[1rem] border-2 border-white border-t-[#8833b8] rounded-full animate-spin"></div>
+            ) : (
+              <p>Login</p>
+            )}
           </button>
         </form>
         <p>

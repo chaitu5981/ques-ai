@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import logo2 from "../assets/images/logo-2.png";
 import { IoSettingsOutline } from "react-icons/io5";
 import { GoBell } from "react-icons/go";
+import { MdLogout } from "react-icons/md";
+
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -15,6 +17,7 @@ const Projects = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  ``;
   console.log(loading);
   const getProjects = async () => {
     try {
@@ -70,6 +73,23 @@ const Projects = () => {
       });
     }
   };
+  const logout = async () => {
+    try {
+      const { data } = await axios.get(`${server}/auth/logout`, {
+        withCredentials: true,
+      });
+      console.log(data);
+      if (data.success) {
+        toast(data.message, {
+          type: "success",
+          position: "top-right",
+        });
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex flex-col gap-8 justify-center items-center w-full h-full md:px-30 py-8">
       <div className="flex justify-between w-full">
@@ -87,6 +107,9 @@ const Projects = () => {
         <div className="flex gap-3 items-center text-2xl">
           <IoSettingsOutline />
           <GoBell />
+          <button className="text-red-500" onClick={logout}>
+            <MdLogout />
+          </button>
         </div>
       </div>
       {loading ? (

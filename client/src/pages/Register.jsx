@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Banner from "../components/Banner";
 const Register = () => {
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -16,6 +17,12 @@ const Register = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { name, email, password } = formData;
+    if (!name || !email || !password)
+      return toast("All fields are required", {
+        type: "warning",
+        position: "top-right",
+      });
     try {
       const res = await axios.post(`${server}/auth/register`, formData, {
         withCredentials: true,
@@ -32,6 +39,7 @@ const Register = () => {
       });
       navigate("/");
     } catch (error) {
+      console.log(error);
       toast(error.response.data.message, {
         type: "error",
         position: "top-right",
@@ -51,6 +59,14 @@ const Register = () => {
           onSubmit={handleSubmit}
           className="flex flex-col gap-4 items-center w-full"
         >
+          <input
+            type="text"
+            value={formData.name}
+            name="name"
+            placeholder="Name"
+            onChange={handleChange}
+            className="border-2 border-slate-200 px-2 py-1 rounded-md w-full"
+          />
           <input
             type="text"
             value={formData.email}

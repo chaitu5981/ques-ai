@@ -2,7 +2,7 @@ import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 export const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser)
@@ -11,7 +11,7 @@ export const register = async (req, res) => {
         message: "User is already existing",
       });
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, password: hashedPassword });
+    const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
 
     res.status(201).json({
@@ -19,6 +19,7 @@ export const register = async (req, res) => {
       message: "User registered successfully",
     });
   } catch (error) {
+    console.log(error);
     res.status(401).json({
       success: false,
       message: "Something went wrong, Try again",
@@ -43,7 +44,7 @@ export const login = async (req, res) => {
         message: "Password is incorrect",
       });
     const token = jwt.sign(
-      { userId: user._id, email: user.email },
+      { userId: user._id, email: user.email, name: user.name },
       process.env.JWT_SECRET_KEY,
       { expiresIn: "1d" }
     );

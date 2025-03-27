@@ -17,6 +17,12 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { email, password } = formData;
+    if (!email || !password)
+      return toast("All fields are required", {
+        type: "warning",
+        position: "top-right",
+      });
     try {
       const { data, error } = await axios.post(
         `${server}/auth/login`,

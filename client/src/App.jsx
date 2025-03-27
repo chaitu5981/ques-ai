@@ -10,6 +10,7 @@ import ViewPodcast from "./components/ViewPodcast";
 import Repurpose from "./components/Repurpose";
 import Widget from "./components/Widget";
 import Upgrade from "./components/Upgrade";
+import Account from "./components/Account";
 const App = () => {
   return (
     <div>
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="repurpose" element={<Repurpose />} />
             <Route path="widget" element={<Widget />} />
             <Route path="upgrade" element={<Upgrade />} />
+            <Route path="account" element={<Account />} />
           </Route>
         </Routes>
       </BrowserRouter>

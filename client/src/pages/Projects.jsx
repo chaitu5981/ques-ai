@@ -71,7 +71,7 @@ const Projects = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-8 justify-center items-center w-full h-full px-30 py-8">
+    <div className="flex flex-col gap-8 justify-center items-center w-full h-full md:px-30 py-8">
       <div className="flex justify-between w-full">
         <div className="flex gap-1 items-center">
           <img
@@ -131,7 +131,7 @@ const Projects = () => {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center gap-10 text-center px-5  w-[70%]">
+        <div className="flex flex-col justify-center items-center gap-10 text-center px-5  w-full">
           <p className="text-3xl font-bold text-[#8833b8]">
             Create a New Project
           </p>

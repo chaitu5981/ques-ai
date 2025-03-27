@@ -1,1 +1,1 @@
-export const server = "http://localhost:5000/api";
+export const server = "https://ques-ai-w0ne.onrender.com/api";

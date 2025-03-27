@@ -131,7 +131,7 @@ const Projects = () => {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center gap-10 text-center px-5  w-[60rem]">
+        <div className="flex flex-col justify-center items-center gap-10 text-center px-5  w-[70%]">
           <p className="text-3xl font-bold text-[#8833b8]">
             Create a New Project
           </p>

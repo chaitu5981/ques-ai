@@ -33,7 +33,8 @@ const Projects = () => {
   };
   const getShortName = (name) => {
     const arr = name.split(" ");
-    return arr[0][0].toUpperCase() + arr[1][0].toUpperCase();
+    if (arr.length < 2) return arr[0].toUpperCase();
+    else return arr[0][0].toUpperCase() + arr[1][0].toUpperCase();
   };
   const getDate = (dateString) => {
     const date = new Date(dateString);
@@ -114,7 +115,7 @@ const Projects = () => {
       </div>
       {loading ? (
         <div className="text-6xl">Loading...</div>
-      ) : projects && projects.length > 0 ? (
+      ) : projects && projects?.length > 0 ? (
         <div className="w-full flex flex-col gap-6">
           <div className="flex w-full flex-col md:flex-row items-center gap-8 justify-between">
             <p className="text-3xl text-[#8833b8] font-bold">Projects</p>

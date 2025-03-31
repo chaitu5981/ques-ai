@@ -33,7 +33,7 @@ const Projects = () => {
   };
   const getShortName = (name) => {
     const arr = name.split(" ");
-    if (arr.length < 2) return arr[0].toUpperCase();
+    if (arr.length < 2) return arr[0][0].toUpperCase();
     else return arr[0][0].toUpperCase() + arr[1][0].toUpperCase();
   };
   const getDate = (dateString) => {

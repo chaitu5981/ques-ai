@@ -1,1 +1,1 @@
-As i am uisng cookies ,please allow your browser to accept third-party cookies to let this project run, otherwise you dont get redirected to home page after successfull login
+As i am using cookies ,please allow your browser to accept third-party cookies to let this project run, otherwise you do't get redirected to home page after successful login

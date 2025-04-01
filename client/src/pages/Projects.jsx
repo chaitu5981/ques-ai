@@ -32,7 +32,7 @@ const Projects = () => {
     }
   };
   const getShortName = (name) => {
-    const arr = name.split(" ");
+    const arr = name.trim().split(" ");
     if (arr.length < 2) return arr[0][0].toUpperCase();
     else return arr[0][0].toUpperCase() + arr[1][0].toUpperCase();
   };
